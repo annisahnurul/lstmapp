@@ -34,7 +34,7 @@ import keras
 
 
 # In[39]:
-st.title("Prediksi Harga Beras")
+st.title("Prediksi harga")
 
 # load dataset
 file = st.file_uploader("Pilih file")
@@ -208,7 +208,7 @@ lstm_model = keras.models.load_model('model02.h5')
 # forecast the entire training dataset to build up state for forecasting
 train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
 hasiltraining=lstm_model.predict(train_reshaped, batch_size=1)
-
+hasiltraining
 
 
 # In[78]:
@@ -231,7 +231,7 @@ for i in range(len(test_scaled)):
     predictions.append(yhat)
     expected = raw_values[len(train) + i + 1]
     #print('Month=%d, Predicted=%f, Expected=%f' % (i+1, yhat, expected))
-    st.write('Month=%d, Predicted=%f, Expected=%f' % (i+1, yhat, expected))
+
 
 # In[80]:
 
@@ -245,6 +245,7 @@ pyplot.plot(predictions)
 yhat = forecast_lstm(lstm_model, 1, X)
 yhat = y
 
+st.pyplot(pyplot)
 
 
 # In[81]:
@@ -301,15 +302,14 @@ for i in range(len(newFutureData)):
     tmpResult = invert_scale(scaler, X, newFutureData[i])
     tmpResult = inverse_difference(raw_values, tmpResult, len(newFutureData)+1-i)
     dataHasilPrediksi.append(tmpResult)
-    st.write("Month",i+1,":",tmpResult)
-    #print("Month",i+1,":",tmpResult)
+    print("Month",i+1,":",tmpResult)
 
 dataHasilPrediksi
 
 pyplot.plot(dataHasilPrediksi)
 #pyplot.show()
 
-
+st.pyplot(pyplot)
 
 # In[87]:
 
